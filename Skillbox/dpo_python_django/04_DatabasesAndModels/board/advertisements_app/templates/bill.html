@@ -1,0 +1,16 @@
+{% block content %}
+  <h1>Bill List</h1>
+  {% if bill_list %}
+  <ul>
+    {% for bill in bill_list %}
+      <li>
+        <a href="{{ bill.get_absolute_url }}">{{ bill.title }}</a>
+        ({{bill.author}})
+        ({{bill.price}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no bill in the library.</p>
+  {% endif %}
+{% endblock %}

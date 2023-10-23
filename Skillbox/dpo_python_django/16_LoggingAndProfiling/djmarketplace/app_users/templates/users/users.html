@@ -1,0 +1,16 @@
+<h1>User List</h1>
+<ul>
+{% if request.user.is_authenticated %}
+    <a></a>{% for user in object_list %}
+    <li>{{ user.username }}</li>
+    {% empty %}
+    <li>No users yet.</li>
+{% endfor %}
+    <h2>
+        <a href="{% url 'main' %}">Main</a>
+        </h2>
+{% else %}
+    <h4>Permission denied</h4>
+    <a href="{% url 'login' %}">Enter</a>
+{% endif %}
+</ul>

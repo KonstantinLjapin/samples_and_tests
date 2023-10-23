@@ -1,0 +1,16 @@
+<h1>Bill List</h1>
+<ul>
+{% if request.user.is_authenticated %}
+    {% for bill in object_list %}
+    <li>{{ bill.title }}</li>
+{% empty %}
+    <li>No bill yet.</li>
+{% endfor %}
+    <a href="{% url 'product' %}">reg_bill</a>
+    <a href="{% url 'main' %}">Main</a>
+{% else %}
+    <h4>Permission denied</h4>
+    <a href="{% url 'buy_product' %}">reg_bill</a>
+    <a href="{% url 'main' %}">Main</a>
+{% endif %}
+</ul>

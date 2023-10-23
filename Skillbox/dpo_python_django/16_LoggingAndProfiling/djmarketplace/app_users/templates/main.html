@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+{% if request.user.is_authenticated %}
+    <h3>Hello {{request.user.username}}</h3>
+     <h4>logout</h4>
+     <a href="{% url 'logout' %}">out</a>
+     <a href="{% url 'users' %}">list of users</a>
+     <a href="{% url 'product' %}">bills_list</a>
+{% else %}
+    <h4>Back</h4>
+    <a href="{% url 'login' %}">Enter</a>
+    <a href="{% url 'reg' %}">Registration</a>
+{% endif %}
+<h2>True</h2>
+</body>
+</html>

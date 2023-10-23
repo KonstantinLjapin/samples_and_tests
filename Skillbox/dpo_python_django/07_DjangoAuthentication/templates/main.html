@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+{% if request.user.is_authenticated %}
+    <h3>Hello{{request.user.username}}</h3>
+{% else %}
+    <h4>Back</h4>
+    <a href="{% url 'login' %}">Enter</a>
+{% endif %}
+<h2>True</h2>
+</body>
+</html>
