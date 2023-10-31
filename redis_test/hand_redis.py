@@ -72,6 +72,7 @@ class WorkerRedis:
 
 
 if __name__ == "__main__":
+
     redison = WorkerRedis()
     redison.add_capcha_key(1234, 1235)
     redison.add_capcha_flag(1234, 1)
@@ -84,5 +85,6 @@ if __name__ == "__main__":
     print(redison.get_all_capcha_user_key(), "all Keys")
     redison.del_capcha_key(1234)
     print(redison.get_all_capcha_user_key(), "all Keys")
+    print(redison.get_capcha_flag(1237), "capcha")
 
 
