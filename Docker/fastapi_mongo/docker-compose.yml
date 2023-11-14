@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+
+  #back_fastapi:
+    #build: app/
+    #container_name: test_back_fastapi
+    #ports:
+      #- "80:80"
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo_db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '27017:27017'
