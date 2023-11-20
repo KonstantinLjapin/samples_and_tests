@@ -78,3 +78,4 @@ def time_denominator(start: datetime.datetime.time = returner_dec_time(work_star
 
 print('Время:', returner_dec_time(work_start))
 print(returner_templete_dict(returner_dec_time(work_start), returner_dec_time(work_end)))
+print("OK")
