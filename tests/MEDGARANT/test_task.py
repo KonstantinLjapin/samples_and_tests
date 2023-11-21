@@ -95,6 +95,33 @@ def time_denominator(start: datetime.timedelta = returner_time_delta(work_start)
         e_temp: datetime.timedelta = s_temp + cell
 
 
+def printer_list_space(space_list: list):
+    for i in space_list:
+        s_td = i.get(start_key_world)
+        e_td = i.get(stop_key_world)
+        sdt = datetime.datetime.strptime(str(s_td), "%H:%M:%S")
+        edt = datetime.datetime.strptime(str(e_td), "%H:%M:%S")
+        print(sdt.hour, ":", sdt.minute, "start")
+        print(edt.hour, ":", edt.minute, "end")
+        print("-")
+
+
+def cuter_busy_list() -> list:
+    out_list: list = []
+    for t in busy:
+        s_t: datetime.timedelta = returner_time_delta(t.get(start_key_world))
+        e_t: datetime.timedelta = returner_time_delta(t.get(stop_key_world))
+        space_list: list = time_denominator()
+        for s in space_list:
+            s_td = s.get(start_key_world)
+            e_td = s.get(stop_key_world)
+            if (s_td > s_t and s_td >= e_t) or (e_td <= s_t and e_td < e_t):
+                out_list.append(s)
+    return out_list
+
+
 print('Время:', returner_dec_time(work_start))
-print(returner_template_dict(returner_dec_time(work_start), returner_dec_time(work_end)))
-pprint(time_denominator())
+print(returner_template_dict(returner_dec_time(work_start), returner_dec_time(work_end)), "dict_time.delta")
+printer_list_space(cuter_busy_list())
+
+
