@@ -1,6 +1,6 @@
 import datetime
+from pprint import pprint
 
-import time
 """Тестовое задание
 
 Доктор принимает с 9 утра до 9 вечера.
@@ -51,7 +51,7 @@ work_end: str = '21:00'
 half_life_hour: str = '00:30'
 
 
-def returner_templete_dict(s: datetime.datetime.time, e: datetime.datetime.time) -> dict:
+def returner_template_dict(s: datetime.timedelta, e: datetime.timedelta) -> dict:
     template_dict_time: dict = {start_key_world: '',
                                 stop_key_world: ''}
     template_dict_time.update({start_key_world: s})
@@ -63,19 +63,38 @@ def returner_dec_time(date_time_str: str) -> datetime.datetime.time:
     return datetime.datetime.strptime(date_time_str, '%H:%M').time()
 
 
-def time_denominator(start: datetime.datetime.time = returner_dec_time(work_start),
-                     end: datetime.datetime.time = returner_dec_time(work_end),
-                     cell: datetime.datetime.time = returner_dec_time(half_life_hour)) -> list:
+def returner_time_delta(date_time_str: str) -> datetime.timedelta:
+    return datetime.timedelta(hours=returner_dec_time(date_time_str).hour,
+                              minutes=returner_dec_time(date_time_str).minute)
 
+
+def time_denominator(start: datetime.timedelta = returner_time_delta(work_start),
+                     end: datetime.timedelta = returner_time_delta(work_end),
+                     cell: datetime.timedelta = returner_time_delta(half_life_hour)) -> list:
+    """
+    a = returner_dec_time(work_start)
+    b = returner_dec_time(work_end)
+    c = (datetime.timedelta(hours=a.hour, minutes=a.minute)
+     + datetime.timedelta(hours=returner_dec_time(half_life_hour).hour,
+                          minutes=returner_dec_time(half_life_hour).minute))
+    :param start: datetime.datetime.time
+    :param end: datetime.datetime.time
+    :param cell: datetime.datetime.time
+    :return: list
+    """
+    s_temp: datetime.timedelta = start
+    e_temp: datetime.timedelta = start + cell
     out_list: list = []
     while True:
         for t in out_list:
             if end in t.values():
                 return out_list
-            cur_t: datetime.datetime.time = t.get(work_end)
-            #temp_obj: dict = template_dict_time.update(start_key_world, cur_t, None)
+        l_t: dict = returner_template_dict(s_temp, e_temp)
+        out_list.append(l_t)
+        s_temp: datetime.timedelta = e_temp
+        e_temp: datetime.timedelta = s_temp + cell
 
 
 print('Время:', returner_dec_time(work_start))
-print(returner_templete_dict(returner_dec_time(work_start), returner_dec_time(work_end)))
-print("OK")
+print(returner_template_dict(returner_dec_time(work_start), returner_dec_time(work_end)))
+pprint(time_denominator())
