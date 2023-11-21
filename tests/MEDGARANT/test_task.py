@@ -120,8 +120,6 @@ def cuter_busy_list() -> list:
     return out_list
 
 
-print('Время:', returner_dec_time(work_start))
-print(returner_template_dict(returner_dec_time(work_start), returner_dec_time(work_end)), "dict_time.delta")
 printer_list_space(cuter_busy_list())
 
 
