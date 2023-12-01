@@ -1,5 +1,6 @@
 @startuml
 !theme spacelab
+title !Simple \n communication \n example
 abstract        abstract
 abstract class  "abstract class"
 annotation      annotation
