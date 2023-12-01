@@ -1,0 +1,36 @@
+@startuml
+skinparam actorStyle awesome
+student --> (Task)
+
+database DB
+
+hexagon IO {
+interface Out
+interface In
+}
+
+node ORM {
+rectangle User_model_in_DB  {
+  usecase "user_name" as U1
+  usecase "count_shovel" as U2
+  usecase "OM_Contract" as U3
+}
+
+rectangle Contract  {
+  usecase "FK_debt_user" as UC1
+  usecase "FK_credit_user" as UC2
+  usecase "count_shovel" as UC3
+}
+}
+
+["Use SQLAlchemy",\n"PostgresDB",\n"docker"] as (Task)
+
+U3 --> Contract #line:green;line.bold
+UC1 --> User_model_in_DB #line:blue;line.bold
+UC3 --> User_model_in_DB #line:blue;line.bold
+Contract <-> DB #line:yellow;line.bold
+User_model_in_DB <-> DB #line:yellow;line.bold
+In => ORM
+Out <= ORM
+student <=> IO
+@enduml
