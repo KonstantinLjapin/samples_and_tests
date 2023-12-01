@@ -1,0 +1,25 @@
+@startsalt
+{
+^"My group box"
+  Login    | "MyName   "
+  Password | "****     "
+  [Cancel] | [  OK   ]
+
+  {
+  {T
+ + World
+ ++ America
+ +++ Canada
+ +++ USA
+ ++++ New York
+ ++++ Boston
+ +++ Mexico
+ ++ Europe
+ +++ Italy
+ +++ Germany
+ ++++ Berlin
+ ++ Africa
+}
+  }
+}
+@endsalt
