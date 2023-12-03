@@ -1,0 +1,56 @@
+version: '3.3'
+
+
+services:
+    back_fastapi:
+     build: app/
+     container_name: back_fastapi
+     ports:
+       - "80:80"
+     environment:
+       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+       MONGO_INITDB_HOST: ${MONGO_INITDB_HOST}
+     depends_on:
+       mongo_upload:
+         condition: service_started
+
+    mongo:
+      image: mongo:latest
+      command:
+        - '--logpath'
+        - '/var/log/mongodb/mongod.log'
+      container_name: mongodb
+      restart: always
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+        MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+        MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      volumes:
+        - ./data:/data/db
+
+      logging:
+        driver: none
+
+    mongo_upload:
+      build: mongo_up_loader/
+      container_name: mongo_upload_container
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+        MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+        MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+        MONGO_INITDB_HOST: ${MONGO_INITDB_HOST}
+
+
+    testing_back:
+      build: testing_app/
+      container_name: testing_back
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+        MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+        MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+        MONGO_INITDB_HOST: ${MONGO_INITDB_HOST}
+      depends_on:
+        back_fastapi:
+          condition: service_started
