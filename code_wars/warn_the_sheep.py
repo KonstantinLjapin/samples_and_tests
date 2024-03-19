@@ -6,7 +6,7 @@ def warn_the_sheep(queue: list) -> str:
     if queue.index(wolf) == len(queue) - 1:
         return warn_wolf
     else:
-        sheep_number: int = len(queue[queue.index(wolf)+1:])
+        sheep_number: int = len(queue[queue.index(wolf) + 1:])
         return warn_sheep.format(sheep_number)
 
 
