@@ -1,0 +1,49 @@
+Для создания bash-скрипта, который будет выводить рекурсивно содержимое директории с указанной статистикой, воспользуйтесь следующим шаблоном:
+
+#!/bin/bash
+
+# Функция для обработки файлов
+process_file() {
+    file="$1"
+    size=$(stat -c %s "$file")
+    checksum=$(md5sum "$file" | cut -d ' ' -f 1)
+    echo "File: $file, Size: $size bytes, Checksum: $checksum"
+}
+
+# Функция для обработки директорий
+process_directory() {
+    directory="$1"
+    extensions=$(find "$directory" -type f | grep -o '\..*$' | sort | uniq)
+    num_files=$(find "$directory" -type f | wc -l)
+    total_size=$(du -csh "$directory" | tail -n 1 | cut -f 1)
+    echo "Directory: $directory, Extensions: $extensions, Number of Files: $num_files, Total Size: $total_size"
+}
+
+# Основная функция для обхода директории
+explore_directory() {
+    for entry in "$1"/*; do
+        if [ -f "$entry" ]; then
+            process_file "$entry"
+        elif [ -d "$entry" ]; then
+            process_directory "$entry"
+            explore_directory "$entry"
+        fi
+    done
+}
+
+# Проверка наличия аргумента (пути к директории)
+if [ -z "$1" ]; then
+    echo "Usage: $0 <directory_path>"
+    exit 1
+fi
+
+# Запуск обхода директории
+explore_directory "$1"
+
+
+Чтобы использовать этот скрипт, сохраните его в файл (например, directory_stats.sh), сделайте его исполняемым (с помощью chmod +x directory_stats.sh) и запустите, указав в качестве аргумента путь к директории, например:
+
+./directory_stats.sh /path/to/directory
+
+
+Скрипт будет рекурсивно обходить указанную директорию и выводить статистику для файлов и директорий в соответствии с вашими требованиями. В конце будет выведен список файлов с одинаковой контрольной суммой с полным путем.

@@ -606,7 +606,7 @@ components:
           example: 500.67
         count:
           type: integer
-          example: 12
+          example: 12.txt
         date:
           type: string
           example: 'Thu Feb 09 2023 21:39:52 GMT+0100 (Central European Standard Time)'
@@ -707,7 +707,7 @@ components:
           example: 500.67
         count:
           type: integer
-          example: 12
+          example: 12.txt
         date:
           type: string
           example: 'Thu Feb 09 2023 21:39:52 GMT+0100 (Central European Standard Time)'
@@ -777,7 +777,7 @@ components:
           example: 4
         date:
           type: string
-          example: '2023-05-05 12:12'
+          example: '2023-05-05 12.txt:12.txt'
     Specification:
       type: object
       xml:
@@ -806,7 +806,7 @@ components:
           example: '123'
         createdAt:
           type: string
-          example: '2023-05-05 12:12'
+          example: '2023-05-05 12.txt:12.txt'
         fullName:
           type: string
           example: 'Annoying Orange'

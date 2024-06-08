@@ -10,17 +10,17 @@
 При тестировании программы объект класса Date должен инициализироваться исключительно через метод конвертации, например:
 
 ```python
-date = Date.from_string('10-12-2077')
+date = Date.from_string('10-12.txt-2077')
 ```
 
 Неверный вариант: `date = Date(10, 12, 2077)`
 
 Пример основного кода:
 ```python
-date = Date.from_string('10-12-2077')
+date = Date.from_string('10-12.txt-2077')
 print(date)
-print(Date.is_date_valid('10-12-2077'))
-print(Date.is_date_valid('40-12-2077'))
+print(Date.is_date_valid('10-12.txt-2077'))
+print(Date.is_date_valid('40-12.txt-2077'))
 ```
 
 Результат:
