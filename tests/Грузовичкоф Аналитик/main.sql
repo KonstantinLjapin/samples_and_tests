@@ -1,0 +1,28 @@
+WITH first_purchase AS (
+    SELECT client_id, MIN(trn_dt) AS first_purchase_date
+    FROM table_name
+    GROUP BY client_id
+)
+SELECT fp.client_id, t.id AS store_id, t.trn_dt AS first_purchase_date
+FROM first_purchase fp
+JOIN table_name t ON fp.client_id = t.client_id AND fp.first_purchase_date = t.trn_dt
+
+WITH consecutive_visits AS (
+    SELECT client_id, format, trn_dt,
+           LAG(trn_dt, 1) OVER (PARTITION BY client_id ORDER BY trn_dt) AS prev_dt,
+           LAG(trn_dt, 2) OVER (PARTITION BY client_id ORDER BY trn_dt) AS prev_prev_dt
+    FROM table_name
+)
+SELECT DISTINCT cv.client_id
+FROM consecutive_visits cv
+LEFT JOIN table_name t ON cv.client_id = t.client_id AND t.format IN ('A', 'B')
+WHERE (t.format IS NULL OR DATEDIFF('week', t.trn_dt, cv.trn_dt) >= 8)
+AND DATEDIFF('week', t.trn_dt, cv.trn_dt) >= 4
+
+SELECT client_id
+FROM table_name
+WHERE trn_total >= 800
+AND product_id IN (1121, 1122, 1123)
+AND trn_dt BETWEEN '2023-01-01' AND '2023-04-01'
+GROUP BY client_id
+HAVING COUNT(DISTINCT product_id) >= 3
