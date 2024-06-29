@@ -41,8 +41,9 @@ def max_point_in_radius(pack: list[[int, int]], r: int):
             if (x - xk) ** 2 / r ** 2 + (y - yk) ** 2 / r ** 2 < 1:
                 count_points += 1
         max_points_in_radius.update({count_points: [x, y]})
-    return (f"max_points {max(max_points_in_radius.keys())} : "
-            f" {max_points_in_radius.get(max(max_points_in_radius.keys()), '1')}")
+    return (f"Координаты оптимальной точки, куда следует произвести запуск:"
+            f" { max_points_in_radius.get(max(max_points_in_radius.keys()), '1')}"
+            f" \nКоличество поражённых целей: {max(max_points_in_radius.keys())}")
 
 
 def file_worker(file_name: str, r: int) -> None:
