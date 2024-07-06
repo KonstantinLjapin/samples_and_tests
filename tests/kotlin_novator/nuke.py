@@ -36,10 +36,14 @@ def max_point_in_radius(pack: list[[int, int]], r: int):
     max_points_in_radius: dict = {}
     for x, y in pack:
         count_points: int = 0
+        print(f"{x},{y}")
         for xk, yk in pack:
             if (x - xk) ** 2 / r ** 2 + (y - yk) ** 2 / r ** 2 < 1:
                 count_points += 1
         max_points_in_radius.update({count_points: [x, y]})
+        print(f"Координаты оптимальной точки, куда следует произвести запуск:"
+            f" { max_points_in_radius.get(max(max_points_in_radius.keys()), '1')}"
+            f" \nКоличество поражённых целей: {max(max_points_in_radius.keys())}", "\n")
     return (f"Координаты оптимальной точки, куда следует произвести запуск:"
             f" { max_points_in_radius.get(max(max_points_in_radius.keys()), '1')}"
             f" \nКоличество поражённых целей: {max(max_points_in_radius.keys())}")
