@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
     for (size_t i = 1; i < count_line; i++)
     {
         target = points[i];
-        int temp = 0;        
+        int temp = 0;  
         for (size_t j = 1; j < count_line; j++)
         {
             sub_target = points[j];
@@ -50,10 +50,9 @@ int main(int argc, char *argv[]) {
                 if (temp>num_targets)
                 {
                     num_targets=temp;
+                    op_point=target;
                 }
-                printf("Количество поражённых целей: %d\n", num_targets);
-                printf("Координаты запуск: (%d, %d)\n\n", target.x, target.y);
-                op_point=target;
+                
             }
         }
         
