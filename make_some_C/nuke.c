@@ -27,32 +27,31 @@ int main(int argc, char *argv[]) {
     Coordinates sub_target;
     Coordinates op_point;
     Coordinates points[100];
-    int num_targets = 0;
+    int num_targets = 1;
     
     
     while (fscanf(file, "%d, %d\n", &target.x, &target.y) == 2) {
-        count_line +=1;
         points[count_line]=target;
+        count_line +=1;
     }
     fclose(file);
-
-    for (size_t i = 1; i < count_line; i++)
+    for (size_t i = 0; i < count_line; i++)
     {
         target = points[i];
-        int temp = 0;  
-        for (size_t j = 1; j < count_line; j++)
+        int temp = 0;
+        for (size_t j = 0; j < count_line; j++)
         {
             sub_target = points[j];
             //(x - xk) ** 2 / r ** 2 + (y - yk) ** 2 / r ** 2 < 1
             if ( pow((target.x - sub_target.x),2) / pow(blast_radius,2) + pow((target.y - sub_target.y),2) / pow(blast_radius,2) < 1)
             {
                 temp+=1;
-                if (temp>num_targets)
+                if (temp>=num_targets)
                 {
                     num_targets=temp;
                     op_point=target;
                 }
-                
+    
             }
         }
         

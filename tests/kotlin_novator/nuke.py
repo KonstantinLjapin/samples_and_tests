@@ -39,7 +39,7 @@ def max_point_in_radius(pack: list[[int, int]], r: int):
         for xk, yk in pack:
             if (x - xk) ** 2 / r ** 2 + (y - yk) ** 2 / r ** 2 < 1:
                 count_points += 1
-                if count_points > max(max_points_in_radius.keys(), default=0):
+                if count_points >= max(max_points_in_radius.keys(), default=0):
                     max_points_in_radius.update({count_points: [x, y]})
     return (f"Координаты оптимальной точки, куда следует произвести запуск:"
             f" { max_points_in_radius.get(max(max_points_in_radius.keys()), '1')}"
