@@ -3,3 +3,8 @@
 /grep
 /main.py
 /make_some_C/.vscode/
+.idea/
+simpls/cv_determinated/ivan.jpg
+simpls/cv_determinated/result.jpg
+simpls/cv_determinated/result.json
+simpls/cv_determinated/mydata.json
